@@ -1,5 +1,5 @@
 const Api = {
-  apiUrl: 'http://localhost:3001/games',
+  apiUrl: 'https://backend-blue-games.herokuapp.com/games',
   fetchGetAll: () => fetch(Api.apiUrl),
   fetchGetById: (id) => fetch(`${Api.apiUrl}/${id}`),
   fetchPost: (data) => {
