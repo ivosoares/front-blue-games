@@ -17,12 +17,19 @@ const ListGames = () => {
 
   const getGames = async () => {
     // faz a requisao http GET atraves do fetch API do javascript.
-    const response = await Api.fetchGetAll();
-    // gamesApi = dados que recebe da api
-    const gamesApi = await response.json();
-    console.log('RESPOSTA DA API', gamesApi);
+    try {
+      const response = await Api.fetchGetAll();
+      if(response.status >= 400 && response.status < 600) {
+        alert('Nao foi possivel acessar os dados verifique a sua api')
+      }
+      // gamesApi = dados que recebe da api
+      const gamesApi = await response.json();
+      console.log('RESPOSTA DA API', gamesApi);
+      setGames(gamesApi);
+    }catch (err) {
+      console.error('ERRO:', err);
+    }
     // atualizar o meu estado em memoria com os games para que possa atualizar o DOM.
-    setGames(gamesApi);
   }
   
   // const handleButton = () => {

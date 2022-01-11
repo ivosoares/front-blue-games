@@ -25,9 +25,19 @@ const View = () => {
   
   const getGameById = async () => {
     // realiza requisicao GET para api
-    const request = await Api.fetchGetById(id);
-    // retorna o jogo encontrado e salva na variavel game
-    const game = await request.json();
+    try {
+      const request = await Api.fetchGetById('1684168743187');
+      if(request.status === 400) {
+        alert('Erro na api, id do game invalido')
+      }
+      if(request.status === 500) {
+        console.error('Erro no servidor')
+      }
+      // retorna o jogo encontrado e salva na variavel game
+      const game = await request.json().catch(err => console.log('ERRO', err));
+    } catch(err) {
+      console.log('erro', err);
+    }
 
     // atualiza o estado com o valor vindo da api
     setGame(game);
